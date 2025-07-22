@@ -1,3 +1,85 @@
+// Certificates Carousel (Dynamic & Premium)
+const certificates = [
+  {
+    icon: 'fa-certificate',
+    title: 'Tata Data Visualization Job Sim.',
+    org: 'Forage',
+    date: 'May 15th 2025',
+    desc: 'Completed the Tata Data Visualization Job Simulation, focusing on data visualization techniques and best practices.'
+  },
+  {
+    icon: 'fa-trophy',
+    title: 'Winner - College Data Science Hackathon',
+    org: 'SRM Institute of Science and Technology',
+    date: '2023',
+    desc: 'Secured 1st place in a data science hackathon for building a predictive analytics solution for student performance.'
+  }
+  // Add more certificates as needed
+];
+
+const carousel = document.getElementById('certificates-carousel');
+if (carousel) {
+  carousel.innerHTML = '';
+  certificates.forEach(cert => {
+    const card = document.createElement('div');
+    card.className = 'certificate-card';
+    card.innerHTML = `
+      <div class="certificate-icon"><i class="fas ${cert.icon}"></i></div>
+      <div class="certificate-content">
+        <h3>${cert.title}</h3>
+        <span class="certificate-org">${cert.org}</span>
+        <span class="certificate-date">${cert.date}</span>
+        <p>${cert.desc}</p>
+      </div>
+    `;
+    carousel.appendChild(card);
+  });
+}
+// Optional: Add drag-to-scroll for certificates carousel for better UX
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.getElementById('certificates-carousel');
+  if (carousel) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    carousel.addEventListener('mousedown', (e) => {
+      isDown = true;
+      carousel.classList.add('active');
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false;
+      carousel.classList.remove('active');
+    });
+    carousel.addEventListener('mouseup', () => {
+      isDown = false;
+      carousel.classList.remove('active');
+    });
+    carousel.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.2; //scroll-fast
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+    // Touch events for mobile
+    carousel.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+    carousel.addEventListener('touchend', () => {
+      isDown = false;
+    });
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.2;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+  }
+});
 // Smooth scrolling for nav links
 const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {

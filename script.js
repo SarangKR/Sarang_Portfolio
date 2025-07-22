@@ -95,12 +95,35 @@ window.addEventListener('scroll', () => {
 
 // Section reveal on scroll
 const sections = document.querySelectorAll('.section');
+const timelineItems = document.querySelectorAll('.timeline-item');
+const experienceCards = document.querySelectorAll('.experience-card');
+
 function revealSections() {
     const triggerBottom = window.innerHeight * 0.85;
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
         if (sectionTop < triggerBottom) {
             section.classList.add('visible');
+        }
+    });
+    
+    // Animate timeline items (if any exist)
+    timelineItems.forEach((item, index) => {
+        const itemTop = item.getBoundingClientRect().top;
+        if (itemTop < triggerBottom) {
+            setTimeout(() => {
+                item.classList.add('animate');
+            }, index * 200); // Stagger animation
+        }
+    });
+    
+    // Animate experience cards
+    experienceCards.forEach((card, index) => {
+        const cardTop = card.getBoundingClientRect().top;
+        if (cardTop < triggerBottom) {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, index * 150); // Stagger animation
         }
     });
 }
@@ -202,43 +225,91 @@ if (contactForm) {
   });
 })();
 
-// Skills Carousel (horizontal infinite scroll, JS-driven)
+// Skills Carousel (horizontal infinite scroll, always running)
 document.addEventListener('DOMContentLoaded', function() {
   const skills = [
     { icon: '<i class="fab fa-python"></i>', name: 'Python' },
     { icon: '<i class="fas fa-database"></i>', name: 'MySQL' },
     { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/powerbi.svg" alt="PowerBI">', name: 'PowerBI' },
-    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tensorflow.svg" alt="Tensorflow">', name: 'Tensorflow' },
+    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tensorflow.svg" alt="Tensorflow">', name: 'TensorFlow' },
     { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pandas.svg" alt="Pandas">', name: 'Pandas' },
-    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/numpy.svg" alt="Numpy">', name: 'Numpy' },
-    { icon: '<i class="fab fa-html5"></i>', name: 'HTML' },
-    { icon: '<i class="fab fa-css3-alt"></i>', name: 'CSS' },
-    { icon: '<i class="fab fa-js-square"></i>', name: 'JavaScript' }
+    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/numpy.svg" alt="Numpy">', name: 'NumPy' },
+    { icon: '<i class="fab fa-html5"></i>', name: 'HTML5' },
+    { icon: '<i class="fab fa-css3-alt"></i>', name: 'CSS3' },
+    { icon: '<i class="fab fa-js-square"></i>', name: 'JavaScript' },
+    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/scikitlearn.svg" alt="Scikit-learn">', name: 'Scikit-learn' },
+    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/jupyter.svg" alt="Jupyter">', name: 'Jupyter' },
+    { icon: '<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/git.svg" alt="Git">', name: 'Git' }
   ];
+  
   const carousel = document.getElementById('skills-carousel');
   if (carousel) {
+    // Create multiple copies for seamless infinite scroll
     let html = '';
-    for (const skill of skills) {
-      html += `<div class="skill-card">${skill.icon}<span>${skill.name}</span></div>`;
+    const copies = 4; // Create 4 copies for ultra-smooth scrolling
+    
+    for (let i = 0; i < copies; i++) {
+      skills.forEach(skill => {
+        html += `<div class="skill-card">${skill.icon}<span>${skill.name}</span></div>`;
+      });
     }
-    // Duplicate for seamless scroll
-    for (const skill of skills) {
-      html += `<div class="skill-card">${skill.icon}<span>${skill.name}</span></div>`;
-    }
+    
     carousel.innerHTML = html;
 
-    // Animation logic
-    let pos = 0;
-    const speed = 0.7; // px per frame
-    const totalWidth = carousel.scrollWidth / 2;
+    // Animation variables
+    let position = 0;
+    const speed = 0.4; // Reduced speed for slower, more relaxed scrolling
+    const skillCards = carousel.querySelectorAll('.skill-card');
+    const cardWidth = 190; // 140px card + 50px gap
+    const singleSetWidth = skills.length * cardWidth;
+    
     function animate() {
-      pos -= speed;
-      if (Math.abs(pos) >= totalWidth) {
-        pos = 0;
+      position -= speed;
+      
+      // Reset position when we've scrolled through one complete set
+      if (Math.abs(position) >= singleSetWidth) {
+        position = 0;
       }
-      carousel.style.transform = `translateX(${pos}px)`;
+      
+      carousel.style.transform = `translateX(${position}px)`;
       requestAnimationFrame(animate);
     }
+    
+    // Start the animation immediately
     animate();
+    
+    // Optional: Add subtle pause on hover (you can remove this if you want continuous scroll)
+    const carouselOuter = document.querySelector('.skills-carousel-outer');
+    if (carouselOuter) {
+      let isPaused = false;
+      let pausedPosition = 0;
+      
+      carouselOuter.addEventListener('mouseenter', () => {
+        isPaused = true;
+        pausedPosition = position;
+      });
+      
+      carouselOuter.addEventListener('mouseleave', () => {
+        isPaused = false;
+        position = pausedPosition;
+      });
+      
+      // Modified animate function to handle pause
+      function animateWithPause() {
+        if (!isPaused) {
+          position -= speed;
+          
+          if (Math.abs(position) >= singleSetWidth) {
+            position = 0;
+          }
+        }
+        
+        carousel.style.transform = `translateX(${position}px)`;
+        requestAnimationFrame(animateWithPause);
+      }
+      
+      // Use the pause-enabled animation
+      animateWithPause();
+    }
   }
 });

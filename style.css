@@ -1,3 +1,134 @@
+/* Premium Certificates & Achievements Section */
+.certificates-title {
+  text-align: center;
+  font-size: 2.1rem;
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: 2.2rem;
+  letter-spacing: 0.5px;
+}
+.certificates-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+  justify-content: center;
+  align-items: stretch;
+}
+.certificate-card.premium {
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(80, 0, 120, 0.10);
+  padding: 2.2rem 2.5rem 1.7rem 2.5rem;
+  min-width: 320px;
+  max-width: 370px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1.5px solid var(--accent-color);
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  position: relative;
+}
+.certificate-card.premium:hover {
+  box-shadow: 0 8px 32px rgba(162,89,255,0.18);
+  transform: translateY(-8px) scale(1.04);
+  border-color: #fff;
+}
+.certificate-icon.premium {
+  font-size: 2.7rem;
+  margin-bottom: 0.8rem;
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.certificate-title {
+  margin-bottom: 0.3rem;
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 1.18rem;
+  font-weight: 600;
+}
+.certificate-meta {
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+.certificate-org {
+  color: var(--accent-color);
+  font-weight: 500;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.certificate-date {
+  color: #aaa;
+  font-size: 0.98rem;
+}
+.certificate-desc {
+  color: #eee;
+  text-align: center;
+  font-size: 1.04rem;
+  margin-top: 0.2rem;
+}
+.certificate-title-link,
+.certificate-title-link:visited,
+.certificate-title-link:hover,
+.certificate-title-link:active {
+  color: inherit !important;
+  text-decoration: none !important;
+  font-weight: inherit;
+  font-size: inherit;
+  transition: none;
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .certificates-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .certificate-card.premium {
+    min-width: 90vw;
+    max-width: 98vw;
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+  }
+}
+/* Modern About Me Section Card Style */
+.about-section {
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.8;
+    font-weight: 400;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.about-section .download-resume-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 13px 36px;
+    background: linear-gradient(90deg, var(--accent-color) 60%, #7f53c0 100%);
+    color: #fff;
+    border: none;
+    border-radius: 32px;
+    font-size: 1.13rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 3px 12px 0 rgba(80, 0, 120, 0.13);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.2px;
+}
+.about-section .download-resume-btn:hover {
+    background: linear-gradient(90deg, #7f53c0 60%, var(--accent-color) 100%);
+    transform: translateY(-2px) scale(1.045);
+    box-shadow: 0 6px 20px 0 rgba(127, 83, 192, 0.18);
+}
 .footer-contact-heading {
     color: #fff !important;
 }
@@ -81,6 +212,7 @@
     --transition: 0.3s cubic-bezier(.4,0,.2,1);
     font-size: 1.20rem;
     line-height: 1.8;
+}
 
 * {
     margin: 0;
@@ -664,4 +796,4 @@ footer {
     display: flex;
     justify-content: center;
     gap: 1.2rem;
-}}
+}

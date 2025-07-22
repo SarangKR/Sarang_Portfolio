@@ -1,3 +1,72 @@
+// Certificates Carousel (Dynamic & Premium)
+const certificates = [
+  {
+    icon: 'fa-certificate',
+    title: 'Tata-Data Visualization Job Sim',
+    certLink: 'https://drive.google.com/file/d/1F4HF4A4HcNHfK5sTLmva3iNUX1GwGx8b/view?usp=drivesdk',
+    org: 'Forage',
+    orgLink: 'https://www.theforage.com/',
+    date: 'May 2025',
+    desc: 'Completed a Job Simulation offered by Tata that helped me learn and apply data visualization techniques using Power BI.'
+  },
+  {
+    icon: 'fa-certificate',
+    title: 'Power BI Desktop for Business Intelligence',
+    certLink: 'https://drive.google.com/file/d/1HackathonWinnerCert',
+    org: 'Udemy',
+    orgLink: 'https://www.udemy.com/',
+    date: '2023',
+    desc: 'Completed a course on Power BI Desktop for Business Intelligence and created interactive dashboards and reports.'
+  },
+  {
+    icon: 'fa-database',
+    title: 'SQL for Data Science',
+    certLink: 'https://drive.google.com/file/d/1SQLDataScienceCert',
+    org: 'Coursera',
+    orgLink: 'https://www.coursera.org/',
+    date: '2024',
+    desc: 'Completed a comprehensive course covering SQL fundamentals, queries, and data analysis for data science applications.'
+  },
+  {
+    icon: 'fa-chart-line',
+    title: 'Power BI Data Analyst Associate',
+    certLink: 'https://drive.google.com/file/d/1PowerBICert',
+    org: 'Microsoft',
+    orgLink: 'https://www.microsoft.com/en-in/',
+    date: '2024',
+    desc: 'Earned certification for demonstrating skills in data modeling, visualization, and business intelligence using Power BI.'
+  },
+  {
+    icon: 'fa-brain',
+    title: 'Machine Learning Specialization',
+    certLink: 'https://drive.google.com/file/d/1MLSpecializationCert',
+    org: 'DeepLearning.AI',
+    orgLink: 'https://www.deeplearning.ai/',
+    date: '2023',
+    desc: 'Completed a multi-course specialization covering supervised, unsupervised learning, and real-world ML projects.'
+  }
+];
+
+const carousel = document.querySelector('.certificates-list');
+if (carousel) {
+  carousel.innerHTML = '';
+  certificates.forEach(cert => {
+    const card = document.createElement('div');
+    card.className = 'certificate-card premium';
+    card.innerHTML = `
+      <div class="certificate-icon premium"><i class="fas ${cert.icon}"></i></div>
+      <div class="certificate-content">
+        <h3 class="certificate-title"><a href="${cert.certLink}" target="_blank" class="certificate-title-link">${cert.title}</a></h3>
+        <div class="certificate-meta">
+          <a href="${cert.orgLink}" target="_blank" class="certificate-org">${cert.org}</a>
+          <span class="certificate-date">${cert.date}</span>
+        </div>
+        <p class="certificate-desc">${cert.desc}</p>
+      </div>
+    `;
+    carousel.appendChild(card);
+  });
+}
 // Smooth scrolling for nav links
 const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {
